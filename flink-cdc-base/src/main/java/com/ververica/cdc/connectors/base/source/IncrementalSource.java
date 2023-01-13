@@ -16,7 +16,6 @@
 
 package com.ververica.cdc.connectors.base.source;
 
-import com.ververica.cdc.debezium.ConfigurationPrinter;
 import org.apache.flink.annotation.Experimental;
 import org.apache.flink.api.common.typeinfo.TypeInformation;
 import org.apache.flink.api.connector.source.Boundedness;
@@ -52,6 +51,7 @@ import com.ververica.cdc.connectors.base.source.metrics.SourceReaderMetrics;
 import com.ververica.cdc.connectors.base.source.reader.IncrementalSourceReader;
 import com.ververica.cdc.connectors.base.source.reader.IncrementalSourceRecordEmitter;
 import com.ververica.cdc.connectors.base.source.reader.IncrementalSourceSplitReader;
+import com.ververica.cdc.debezium.ConfigurationPrinter;
 import com.ververica.cdc.debezium.DebeziumDeserializationSchema;
 import io.debezium.relational.TableId;
 
@@ -66,7 +66,9 @@ import java.util.function.Supplier;
  */
 @Experimental
 public class IncrementalSource<T, C extends SourceConfig>
-        implements Source<T, SourceSplitBase, PendingSplitsState>, ResultTypeQueryable<T>, ConfigurationPrinter {
+        implements Source<T, SourceSplitBase, PendingSplitsState>,
+                ResultTypeQueryable<T>,
+                ConfigurationPrinter {
 
     private static final long serialVersionUID = 1L;
 

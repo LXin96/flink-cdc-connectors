@@ -16,7 +16,6 @@
 
 package com.ververica.cdc.connectors.mysql.source;
 
-import com.ververica.cdc.debezium.ConfigurationPrinter;
 import org.apache.flink.annotation.Internal;
 import org.apache.flink.annotation.PublicEvolving;
 import org.apache.flink.api.common.typeinfo.TypeInformation;
@@ -54,6 +53,7 @@ import com.ververica.cdc.connectors.mysql.source.split.MySqlSplit;
 import com.ververica.cdc.connectors.mysql.source.split.MySqlSplitSerializer;
 import com.ververica.cdc.connectors.mysql.source.split.SourceRecords;
 import com.ververica.cdc.connectors.mysql.table.StartupMode;
+import com.ververica.cdc.debezium.ConfigurationPrinter;
 import com.ververica.cdc.debezium.DebeziumDeserializationSchema;
 import io.debezium.jdbc.JdbcConnection;
 
@@ -93,7 +93,9 @@ import static com.ververica.cdc.connectors.mysql.debezium.DebeziumUtils.openJdbc
  */
 @Internal
 public class MySqlSource<T>
-        implements Source<T, MySqlSplit, PendingSplitsState>, ResultTypeQueryable<T>, ConfigurationPrinter {
+        implements Source<T, MySqlSplit, PendingSplitsState>,
+                ResultTypeQueryable<T>,
+                ConfigurationPrinter {
 
     private static final long serialVersionUID = 1L;
 

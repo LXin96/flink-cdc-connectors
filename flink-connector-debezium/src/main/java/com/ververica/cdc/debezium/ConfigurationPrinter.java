@@ -25,7 +25,7 @@ import java.util.Properties;
 import java.util.Set;
 import java.util.regex.Pattern;
 
-/** used for print connector configuration masked password which copy from debezium*/
+/** used for print connector configuration masked password which copy from debezium */
 public interface ConfigurationPrinter {
     Logger LOG = LoggerFactory.getLogger(ConfigurationPrinter.class);
 
@@ -76,13 +76,13 @@ public interface ConfigurationPrinter {
         };
     }
 
-    default void printConfigurationMaskedPasswords(Properties properties){
+    default void printConfigurationMaskedPasswords(Properties properties) {
         LOG.info("Starting {} with configuration:", getClass().getSimpleName());
         withMaskedPasswords(properties)
-            .asProperties()
-            .forEach(
-                (propName, propValue) -> {
-                    LOG.info("   {} = {}", propName, propValue);
-                });
+                .asProperties()
+                .forEach(
+                        (propName, propValue) -> {
+                            LOG.info("   {} = {}", propName, propValue);
+                        });
     }
 }

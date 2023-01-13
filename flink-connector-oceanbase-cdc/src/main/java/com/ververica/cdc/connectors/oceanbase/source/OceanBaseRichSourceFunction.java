@@ -133,7 +133,9 @@ public class OceanBaseRichSourceFunction<T> extends RichSourceFunction<T>
         this.logProxyPort = checkNotNull(logProxyPort);
         this.logProxyClientConf = checkNotNull(logProxyClientConf);
         this.obReaderConfig = checkNotNull(obReaderConfig);
-        printConfigurationMaskedPasswords(withMaskedPasswords(this.obReaderConfig.generateConfigurationMap(true)).asProperties());
+        printConfigurationMaskedPasswords(
+                withMaskedPasswords(this.obReaderConfig.generateConfigurationMap(true))
+                        .asProperties());
         this.deserializer = checkNotNull(deserializer);
     }
 
