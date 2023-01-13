@@ -24,6 +24,7 @@ import javax.annotation.Nullable;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Properties;
 
 import static com.ververica.cdc.connectors.mongodb.source.utils.MongoUtils.buildConnectionString;
 import static org.apache.flink.util.Preconditions.checkNotNull;
@@ -191,5 +192,25 @@ public class MongoDBSourceConfig implements SourceConfig {
                 heartbeatIntervalMillis,
                 splitMetaGroupSize,
                 splitSizeMB);
+    }
+
+    @Override
+    public Properties getSourceConfig() {
+        Properties properties = new Properties();
+        properties.put("hosts", hosts);
+        properties.put("username", username);
+        properties.put("password", password);
+        properties.put("databaseList", databaseList);
+        properties.put("collectionList", collectionList);
+        properties.put("connectionString", connectionString);
+        properties.put("batchSize", batchSize);
+        properties.put("pollAwaitTimeMillis", pollAwaitTimeMillis);
+        properties.put("pollMaxBatchSize", pollMaxBatchSize);
+        properties.put("updateLookup", updateLookup);
+        properties.put("startupOptions", startupOptions);
+        properties.put("heartbeatIntervalMillis", heartbeatIntervalMillis);
+        properties.put("splitMetaGroupSize", splitMetaGroupSize);
+        properties.put("splitSizeMB", splitSizeMB);
+        return properties;
     }
 }

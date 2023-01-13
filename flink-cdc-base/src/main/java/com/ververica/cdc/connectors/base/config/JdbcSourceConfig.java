@@ -143,4 +143,23 @@ public abstract class JdbcSourceConfig extends BaseSourceConfig {
     public String getChunkKeyColumn() {
         return chunkKeyColumn;
     }
+
+    @Override
+    public Properties getSourceConfig() {
+        Properties properties = new Properties();
+        properties.put("driverClassName", driverClassName);
+        properties.put("hostname", hostname);
+        properties.put("port", port);
+        properties.put("username", username);
+        properties.put("password", password);
+        properties.put("databaseList", databaseList);
+        properties.put("tableList", tableList);
+        properties.put("fetchSize", fetchSize);
+        properties.put("serverTimeZone", serverTimeZone);
+        properties.put("connectTimeout", connectTimeout);
+        properties.put("connectMaxRetries", connectMaxRetries);
+        properties.put("connectionPoolSize", connectionPoolSize);
+        properties.put("chunkKeyColumn", chunkKeyColumn);
+        return properties;
+    }
 }

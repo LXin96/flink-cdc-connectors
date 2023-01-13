@@ -103,4 +103,13 @@ public class OracleSourceConfig extends JdbcSourceConfig {
     public String getUrl() {
         return url;
     }
+
+    @Override
+    public Properties getSourceConfig() {
+        Properties properties = super.getSourceConfig();
+        if (this.url != null) {
+            properties.put("url", this.url);
+        }
+        return properties;
+    }
 }

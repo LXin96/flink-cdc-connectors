@@ -16,6 +16,7 @@
 
 package com.ververica.cdc.connectors.mysql.source;
 
+import com.ververica.cdc.debezium.ConfigurationPrinter;
 import org.apache.flink.annotation.Internal;
 import org.apache.flink.annotation.PublicEvolving;
 import org.apache.flink.api.common.typeinfo.TypeInformation;
@@ -92,7 +93,7 @@ import static com.ververica.cdc.connectors.mysql.debezium.DebeziumUtils.openJdbc
  */
 @Internal
 public class MySqlSource<T>
-        implements Source<T, MySqlSplit, PendingSplitsState>, ResultTypeQueryable<T> {
+        implements Source<T, MySqlSplit, PendingSplitsState>, ResultTypeQueryable<T>, ConfigurationPrinter {
 
     private static final long serialVersionUID = 1L;
 
@@ -131,6 +132,7 @@ public class MySqlSource<T>
         // create source config for the given subtask (e.g. unique server id)
         MySqlSourceConfig sourceConfig =
                 configFactory.createConfig(readerContext.getIndexOfSubtask());
+        printConfigurationMaskedPasswords(sourceConfig.getSourceConfig());
         FutureCompletingBlockingQueue<RecordsWithSplitIds<SourceRecords>> elementsQueue =
                 new FutureCompletingBlockingQueue<>();
 

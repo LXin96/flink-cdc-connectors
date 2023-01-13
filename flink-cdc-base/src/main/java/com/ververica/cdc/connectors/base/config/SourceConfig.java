@@ -21,6 +21,7 @@ import org.apache.flink.annotation.Experimental;
 import com.ververica.cdc.connectors.base.options.StartupOptions;
 
 import java.io.Serializable;
+import java.util.Properties;
 
 /** The source configuration which offers basic source configuration. */
 @Experimental
@@ -40,4 +41,7 @@ public interface SourceConfig extends Serializable {
 
         C create(int subtask);
     }
+
+    /** used for return source configuration properties. */
+    Properties getSourceConfig();
 }

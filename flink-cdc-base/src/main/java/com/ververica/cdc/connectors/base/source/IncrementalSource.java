@@ -16,6 +16,7 @@
 
 package com.ververica.cdc.connectors.base.source;
 
+import com.ververica.cdc.debezium.ConfigurationPrinter;
 import org.apache.flink.annotation.Experimental;
 import org.apache.flink.api.common.typeinfo.TypeInformation;
 import org.apache.flink.api.connector.source.Boundedness;
@@ -65,7 +66,7 @@ import java.util.function.Supplier;
  */
 @Experimental
 public class IncrementalSource<T, C extends SourceConfig>
-        implements Source<T, SourceSplitBase, PendingSplitsState>, ResultTypeQueryable<T> {
+        implements Source<T, SourceSplitBase, PendingSplitsState>, ResultTypeQueryable<T>, ConfigurationPrinter {
 
     private static final long serialVersionUID = 1L;
 
@@ -105,7 +106,7 @@ public class IncrementalSource<T, C extends SourceConfig>
         C sourceConfig = configFactory.create(readerContext.getIndexOfSubtask());
         FutureCompletingBlockingQueue<RecordsWithSplitIds<SourceRecords>> elementsQueue =
                 new FutureCompletingBlockingQueue<>();
-
+        printConfigurationMaskedPasswords(sourceConfig.getSourceConfig());
         // Forward compatible with flink 1.13
         final Method metricGroupMethod = readerContext.getClass().getMethod("metricGroup");
         metricGroupMethod.setAccessible(true);

@@ -104,7 +104,10 @@ import static com.ververica.cdc.debezium.utils.DatabaseHistoryUtil.retrieveHisto
  */
 @PublicEvolving
 public class DebeziumSourceFunction<T> extends RichSourceFunction<T>
-        implements CheckpointedFunction, CheckpointListener, ResultTypeQueryable<T> {
+        implements CheckpointedFunction,
+                CheckpointListener,
+                ResultTypeQueryable<T>,
+                ConfigurationPrinter {
 
     private static final long serialVersionUID = -5808108641062931623L;
 
@@ -205,6 +208,7 @@ public class DebeziumSourceFunction<T> extends RichSourceFunction<T>
             Validator validator) {
         this.deserializer = deserializer;
         this.properties = properties;
+        printConfigurationMaskedPasswords(properties);
         this.specificOffset = specificOffset;
         this.validator = validator;
     }

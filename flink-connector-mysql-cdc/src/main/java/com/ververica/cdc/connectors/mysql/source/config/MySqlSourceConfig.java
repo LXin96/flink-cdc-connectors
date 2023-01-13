@@ -18,6 +18,7 @@ package com.ververica.cdc.connectors.mysql.source.config;
 
 import com.ververica.cdc.connectors.mysql.source.MySqlSource;
 import com.ververica.cdc.connectors.mysql.table.StartupOptions;
+import com.ververica.cdc.debezium.ConfigurationPrinter;
 import io.debezium.config.Configuration;
 import io.debezium.connector.mysql.MySqlConnectorConfig;
 import io.debezium.relational.RelationalTableFilters;
@@ -28,11 +29,12 @@ import java.io.Serializable;
 import java.time.Duration;
 import java.util.List;
 import java.util.Properties;
+import java.util.stream.Collectors;
 
 import static org.apache.flink.util.Preconditions.checkNotNull;
 
 /** A MySql Source configuration which is used by {@link MySqlSource}. */
-public class MySqlSourceConfig implements Serializable {
+public class MySqlSourceConfig implements Serializable, ConfigurationPrinter {
     private static final long serialVersionUID = 1L;
 
     private final String hostname;
@@ -213,5 +215,17 @@ public class MySqlSourceConfig implements Serializable {
     @Nullable
     public String getChunkKeyColumn() {
         return chunkKeyColumn;
+    }
+
+    public Properties getSourceConfig() {
+        Properties properties = new Properties();
+        dbzProperties.entrySet().stream()
+                .peek((entry) -> properties.put(entry.getKey(), entry.getValue()))
+                .collect(Collectors.toSet());
+        jdbcProperties.entrySet().stream()
+                .peek((entry) -> properties.put(entry.getKey(), entry.getValue()))
+                .collect(Collectors.toSet());
+
+        return properties;
     }
 }

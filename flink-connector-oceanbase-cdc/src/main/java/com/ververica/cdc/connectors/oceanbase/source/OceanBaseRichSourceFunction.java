@@ -39,6 +39,7 @@ import com.oceanbase.oms.logmessage.DataMessage;
 import com.oceanbase.oms.logmessage.LogMessage;
 import com.ververica.cdc.connectors.oceanbase.table.OceanBaseDeserializationSchema;
 import com.ververica.cdc.connectors.oceanbase.table.OceanBaseRecord;
+import com.ververica.cdc.debezium.ConfigurationPrinter;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -67,7 +68,10 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
  * @param <T> The type created by the deserializer.
  */
 public class OceanBaseRichSourceFunction<T> extends RichSourceFunction<T>
-        implements CheckpointListener, CheckpointedFunction, ResultTypeQueryable<T> {
+        implements CheckpointListener,
+                CheckpointedFunction,
+                ResultTypeQueryable<T>,
+                ConfigurationPrinter {
 
     private static final long serialVersionUID = 2844054619864617340L;
 
@@ -129,6 +133,7 @@ public class OceanBaseRichSourceFunction<T> extends RichSourceFunction<T>
         this.logProxyPort = checkNotNull(logProxyPort);
         this.logProxyClientConf = checkNotNull(logProxyClientConf);
         this.obReaderConfig = checkNotNull(obReaderConfig);
+        printConfigurationMaskedPasswords(withMaskedPasswords(this.obReaderConfig.generateConfigurationMap(true)).asProperties());
         this.deserializer = checkNotNull(deserializer);
     }
 

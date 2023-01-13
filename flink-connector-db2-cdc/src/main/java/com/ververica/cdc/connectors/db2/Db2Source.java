@@ -17,6 +17,7 @@
 package com.ververica.cdc.connectors.db2;
 
 import com.ververica.cdc.connectors.db2.table.StartupOptions;
+import com.ververica.cdc.debezium.ConfigurationPrinter;
 import com.ververica.cdc.debezium.DebeziumDeserializationSchema;
 import com.ververica.cdc.debezium.DebeziumSourceFunction;
 import com.ververica.cdc.debezium.Validator;
@@ -27,7 +28,7 @@ import java.util.Properties;
 import static org.apache.flink.util.Preconditions.checkNotNull;
 
 /** Source for DB2 CDC connector. */
-public class Db2Source {
+public class Db2Source implements ConfigurationPrinter {
     private static final String DB2_DATABASE_SERVER_NAME = "db2_cdc_source";
 
     public static <T> Builder<T> builder() {
